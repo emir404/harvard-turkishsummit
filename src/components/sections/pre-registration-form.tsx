@@ -25,13 +25,15 @@ export function PreRegistrationForm() {
         <TextField name="firstName" label="First name" placeholder="Ayşe" autoComplete="given-name" required />
         <TextField name="lastName" label="Last name" placeholder="Yılmaz" autoComplete="family-name" required />
       </div>
-      <TextField name="email" type="email" label="Email" placeholder="you@example.com" autoComplete="email" required />
-      <TextField
-        name="organization"
-        label="University or organization"
-        placeholder="University, company or institution"
-        autoComplete="organization"
-      />
+      <div className="grid gap-x-5 gap-y-6 sm:grid-cols-2">
+        <TextField name="email" type="email" label="Email" placeholder="you@example.com" autoComplete="email" required />
+        <TextField
+          name="organization"
+          label="University or organization"
+          placeholder="University or company"
+          autoComplete="organization"
+        />
+      </div>
       <ChoiceChips name="attendeeType" legend="I am a" options={attendeeTypes} defaultValue="Student" />
       <CheckboxCards name="interest" legend="I’m interested in" options={interests} defaultValue={["summit"]} />
       <CheckboxField name="mailingList" className="text-fg-secondary">

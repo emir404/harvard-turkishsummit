@@ -1,74 +1,84 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-/** Small label with the crimson mark that names every section. */
-export function SectionLabel({
-  id,
-  as: Tag = "h2",
-  children,
-}: {
-  id?: string;
-  as?: "h2" | "h3";
-  children: ReactNode;
-}) {
-  return (
-    <Tag id={id} className="flex items-center gap-2.5 text-sm text-fg">
-      <span aria-hidden="true" className="size-1.5 bg-accent" />
-      {children}
-    </Tag>
-  );
-}
+export type Scheme = "ink" | "paper" | "crimson";
 
-/** A page section: side padding, a hairline on top, generous space below. */
+const schemes: Record<Scheme, string> = {
+  ink: "scheme-ink",
+  paper: "scheme-paper",
+  crimson: "scheme-crimson",
+};
+
+/**
+ * A full-bleed band in one of the three schemes, so moving from one section
+ * to the next is a change of colour, with the content held to the page width.
+ */
 export function Section({
   id,
-  children,
+  scheme = "ink",
   className,
+  innerClassName,
+  children,
 }: {
   id: string;
-  children: ReactNode;
+  scheme?: Scheme;
   className?: string;
+  innerClassName?: string;
+  children: ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-label`} className={cn("px-5 pb-20 md:px-10 lg:pb-30", className)}>
-      <div className="border-t border-rule pt-6">{children}</div>
+    <section id={id} aria-labelledby={`${id}-title`} className={cn(schemes[scheme], "relative", className)}>
+      <div className={cn("relative mx-auto max-w-page px-5 py-20 md:px-10 lg:py-28 xl:px-16", innerClassName)}>
+        {children}
+      </div>
     </section>
   );
 }
 
-/** Label on the left, statement starting at the middle column. */
-export function SectionHeader({
+/** The section's name, small and quiet above its title. */
+export function SectionTag({ label, className }: { index?: string; label: string; className?: string }) {
+  return <p className={cn("text-sm font-medium text-fg-secondary", className)}>{label}</p>;
+}
+
+export const titleClass =
+  "text-[2.625rem] leading-[1.04] font-light tracking-[-0.03em] text-balance sm:text-6xl lg:text-7xl xl:text-headline";
+
+/**
+ * Opens a section: its name, a large title and an optional short lead and
+ * action set to the right. Nothing here animates; the sections' own moments do.
+ */
+export function SectionIntro({
   id,
+  index,
   label,
-  aside,
-  children,
+  title,
+  lead,
+  action,
+  className,
 }: {
   id: string;
+  index?: string;
   label: string;
-  /** Sits at the bottom of the label column, level with the end of the statement. */
-  aside?: ReactNode;
-  children: ReactNode;
+  title: string;
+  lead?: ReactNode;
+  action?: ReactNode;
+  className?: string;
 }) {
   return (
-    // Source order is label, statement, aside, so the statement comes first on a phone.
-    <div className="grid gap-x-5 gap-y-8 lg:grid-cols-12">
-      <div className="lg:col-span-6">
-        <SectionLabel id={`${id}-label`}>{label}</SectionLabel>
+    <header className={cn("grid gap-x-5 gap-y-8 lg:grid-cols-12 lg:items-end", className)}>
+      {/* Without a lead beside it, the title has the full width. */}
+      <div className={lead || action ? "lg:col-span-8" : "lg:col-span-12"}>
+        <SectionTag index={index} label={label} />
+        <h2 id={`${id}-title`} className={cn("mt-5", lead || action ? "max-w-4xl" : "max-w-6xl", titleClass)}>
+          {title}
+        </h2>
       </div>
-      <div className="lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1">{children}</div>
-      {aside ? <div className="lg:col-span-6 lg:row-start-2 lg:self-end">{aside}</div> : null}
-    </div>
+      {lead || action ? (
+        <div className="flex flex-col items-start gap-6 lg:col-span-4 lg:pb-2">
+          {lead ? <p className="max-w-md text-lg text-pretty text-fg-secondary">{lead}</p> : null}
+          {action}
+        </div>
+      ) : null}
+    </header>
   );
-}
-
-export function Statement({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <p className={cn("text-3xl font-medium tracking-tight text-balance md:text-4xl xl:text-statement", className)}>
-      {children}
-    </p>
-  );
-}
-
-export function Lead({ children, className }: { children: ReactNode; className?: string }) {
-  return <p className={cn("max-w-xl text-lg text-pretty text-fg-secondary", className)}>{children}</p>;
 }

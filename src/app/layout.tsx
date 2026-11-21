@@ -1,10 +1,11 @@
+import { Agentation } from "agentation";
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight } from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const interTight = Inter_Tight({
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter-tight",
+  variable: "--font-hanken-grotesk",
   display: "swap",
 });
 
@@ -18,14 +19,25 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e0e10",
+  themeColor: "#0c0c0c",
   colorScheme: "dark",
 };
 
+// Runs before first paint: content that reveals on scroll is hidden only when
+// JavaScript is running. If the page's motion runtime has not started a few
+// seconds later (a script failed, a slow network), everything is shown as it is.
+const revealGate = `(function(){var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-motion"))d.classList.remove("js")},4000)})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={interTight.variable}>
-      <body>{children}</body>
+    <html lang="en" className={hankenGrotesk.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: revealGate }} />
+      </head>
+      <body>
+        {children}
+        {process.env.NODE_ENV === "development" && <Agentation />}
+      </body>
     </html>
   );
 }

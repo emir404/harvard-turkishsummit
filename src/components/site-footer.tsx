@@ -11,7 +11,7 @@ export function SiteFooter() {
   const firstContact = footer.contacts[0];
 
   return (
-    <footer className="px-5 pt-18 pb-10 md:px-10">
+    <footer className="mx-auto max-w-page px-5 pt-18 pb-10 md:px-10 xl:px-16">
       <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-12">
         <div className="col-span-2 flex flex-col lg:col-span-3">
           <Image src={summitLogo} alt={`${event.name} 2027`} className="h-16 w-auto self-start" />
