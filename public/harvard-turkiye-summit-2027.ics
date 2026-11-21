@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Harvard Türkiye Summit//2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:summit-2027@harvard-turkiye-summit
+DTSTAMP:20261121T000000Z
+DTSTART:20270501T130000Z
+DTEND:20270501T210000Z
+SUMMARY:Harvard Türkiye Summit 2027
+LOCATION:David Rubenstein Treehouse\, Harvard University\, 20 Western Ave\,
+  Boston\, MA
+DESCRIPTION:Türkiye Beyond the Crossroads: From Regional Power to Global F
+ orce. Preliminary program\, subject to change. The evening Gala (20:00–2
+ 3:00) is ticketed separately.
+END:VEVENT
+END:VCALENDAR
