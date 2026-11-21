@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colour roles */
+  --color-ground: #0e0e10;
+  --color-raised: #17171a;
+  --color-fg: #f6f1ea;
+  --color-fg-secondary: #b6b2ab;
+  --color-fg-tertiary: #99918f;
+  --color-rule: #2b2b2e;
+  --color-field: #68686c;
+  --color-accent: #a51c30;
+  --color-accent-fg: #e0566b;
+
+  /* Type roles the default scale has no step for */
+  --text-display: 5.25rem;
+  --text-display--line-height: 1;
+  --text-statement: 2.75rem;
+  --text-statement--line-height: 3rem;
+  --text-title: 1.75rem;
+  --text-title--line-height: 2.125rem;
+  --text-row: 1.375rem;
+  --text-row--line-height: 1.875rem;
+
+  /* Page width the layout was drawn at */
+  --container-page: 90rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-ground);
+  }
+
+  body {
+    @apply bg-ground font-sans text-fg antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 2px;
+  }
+}
