@@ -1,36 +1,43 @@
-import { Lead, Section, SectionHeader, Statement } from "@/components/ui/section";
-import { mission } from "@/content/summit";
+import { ScrollScene } from "@/components/motion/scroll-scene";
+import { BosphorusScene } from "@/components/sections/bosphorus-scene";
+import { SectionIntro } from "@/components/ui/section";
+import { mission, sections } from "@/content/summit";
 
+/**
+ * Mission & vision over the Bosphorus at night: the bridge between Europe and
+ * Asia is drawn from one shore to the other as the section scrolls in, then
+ * its windows and lamps come on. Like the hero's house, the scene has no
+ * frame: it runs past the page and melts into it at every edge.
+ */
 export function Mission() {
   return (
-    <Section id="mission">
-      <SectionHeader id="mission" label="Mission & vision">
-        <Statement>{mission.statement}</Statement>
-      </SectionHeader>
-
-      <div className="mt-16 grid gap-x-5 gap-y-12 lg:mt-24 lg:grid-cols-2">
-        {mission.blocks.map((block) => (
-          <article key={block.label} className="flex flex-col border-t border-rule pt-5">
-            <h3 className="text-sm text-fg-tertiary">{block.label}</h3>
-            <p className="mt-10 max-w-xl text-2xl font-medium tracking-tight text-balance text-fg lg:mt-14 lg:text-title">
-              {block.heading}
-            </p>
-            <Lead className="mt-4">{block.text}</Lead>
-          </article>
-        ))}
+    <section id="mission" aria-labelledby="mission-title" className="scheme-ink relative">
+      <div className="relative mx-auto max-w-page px-5 pt-20 md:px-10 lg:pt-28 xl:px-16">
+        <SectionIntro id="mission" {...sections.mission} title={mission.title} lead={mission.lead} />
       </div>
 
-      <div className="mt-16 lg:mt-24">
-        <h3 className="pb-5 text-sm text-fg-tertiary">Why now</h3>
-        <ul className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {mission.whyNow.map((item) => (
-            <li key={item.title} className="flex flex-col gap-3 border-t border-rule pt-5">
-              <span className="text-row font-medium text-fg">{item.title}</span>
-              <span className="max-w-xs text-base text-pretty text-fg-secondary">{item.text}</span>
-            </li>
+      <ScrollScene mode="enter" rate={8} className="relative mt-2 overflow-x-clip lg:-mt-10">
+        {/* Wider than the screen on phones, so the bridge stays large; the edges crop and fade. */}
+        <div className="bos-mask relative left-1/2 w-[210vw] max-w-[132rem] -translate-x-1/2 sm:w-[160vw] lg:w-[min(128vw,132rem)]">
+          <BosphorusScene label={mission.drawingLabel} shores={{ europe: "Europe", asia: "Asia" }} />
+        </div>
+      </ScrollScene>
+
+      <div className="relative mx-auto max-w-page px-5 pb-20 md:px-10 lg:pb-28 xl:px-16">
+        <div className="grid gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-12">
+          {mission.items.map((item) => (
+            <div
+              key={item.label}
+              className="flex flex-col gap-4 border-t border-rule pt-5 lg:col-span-5 lg:even:col-start-7"
+            >
+              <h3 className="text-sm font-semibold text-accent-fg">{item.label}</h3>
+              <p className="text-2xl leading-[1.25] font-light tracking-[-0.015em] text-balance lg:text-[2rem]">
+                {item.text}
+              </p>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

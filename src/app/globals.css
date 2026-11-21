@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colour roles */
-  --color-ground: #0e0e10;
+  /* Colour roles. Sections swap these with a scheme class (below), so a
+     component written with `text-fg` or `border-rule` reads right on ink,
+     paper or crimson without knowing where it sits. */
+  --color-ground: #0c0c0c;
   --color-raised: #17171a;
   --color-fg: #f6f1ea;
   --color-fg-secondary: #b6b2ab;
@@ -12,9 +14,16 @@
   --color-accent: #a51c30;
   --color-accent-fg: #e0566b;
 
+  /* Fixed colours, for parts that keep their colour in any scheme */
+  --color-ink: #0c0c0c;
+  --color-paper: #f3eee6;
+  --color-crimson: #a51c30;
+
   /* Type roles the default scale has no step for */
   --text-display: 5.25rem;
   --text-display--line-height: 1;
+  --text-headline: 4.5rem;
+  --text-headline--line-height: 1.02;
   --text-statement: 2.75rem;
   --text-statement--line-height: 3rem;
   --text-title: 1.75rem;
@@ -24,10 +33,22 @@
 
   /* Page width the layout was drawn at */
   --container-page: 90rem;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Strong ease-out for things that answer the pointer, and a strong
+     ease-in-out for things that travel on screen. */
+  --ease-snap: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-move: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* One shadow language: a hairline and a long faint fall for a card on the
+     page, a deeper one for a panel, and the lift of something in flight. */
+  --shadow-card: 0 1px 2px rgb(12 12 12 / 0.06), 0 18px 36px -24px rgb(12 12 12 / 0.28);
+  --shadow-panel: 0 1px 2px rgb(12 12 12 / 0.06), 0 28px 56px -32px rgb(12 12 12 / 0.32);
+  --shadow-lift: 0 2px 6px rgb(12 12 12 / 0.14), 0 36px 64px -24px rgb(12 12 12 / 0.6);
 }
 
 @theme inline {
-  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hanken-grotesk), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -43,5 +64,501 @@
   :focus-visible {
     outline: 2px solid var(--color-fg);
     outline-offset: 2px;
+  }
+
+  /* Drawings take their line opacity and face tones from the scheme they
+     sit in; the page itself is ink. */
+  :root {
+    --iso-ink: 0.55;
+    --iso-f0: #09090a;
+    --iso-f1: #0e0e10;
+    --iso-f2: #131315;
+    --iso-f3: #18181a;
+    --iso-f4: #1d1d20;
+    --iso-f5: #232326;
+    --iso-f6: #29292c;
+    --iso-f7: #303034;
+    --iso-light: #ffc47a;
+    --iso-light-on: 0.9;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Section schemes */
+
+@utility scheme-ink {
+  --color-ground: #0c0c0c;
+  --color-raised: #17171a;
+  --color-fg: #f6f1ea;
+  --color-fg-secondary: #b6b2ab;
+  --color-fg-tertiary: #99918f;
+  --color-rule: #2b2b2e;
+  --color-field: #68686c;
+  --color-accent-fg: #e0566b;
+  --iso-ink: 0.55;
+  /* Faces and lights of the drawings: night, like the hero's house. */
+  --iso-f0: #09090a;
+  --iso-f1: #0e0e10;
+  --iso-f2: #131315;
+  --iso-f3: #18181a;
+  --iso-f4: #1d1d20;
+  --iso-f5: #232326;
+  --iso-f6: #29292c;
+  --iso-f7: #303034;
+  --iso-light: #ffc47a;
+  --iso-light-on: 0.9;
+  color-scheme: dark;
+  background-color: var(--color-ground);
+  color: var(--color-fg);
+}
+
+@utility scheme-paper {
+  --color-ground: #f3eee6;
+  --color-raised: #fbf9f5;
+  --color-fg: #0c0c0c;
+  --color-fg-secondary: #47433e;
+  --color-fg-tertiary: #6b665f;
+  --color-rule: #dcd5c9;
+  --color-field: #9f978b;
+  --color-accent-fg: #a51c30;
+  --iso-ink: 0.8;
+  /* Day: warm paper tones, lights off. */
+  --iso-f0: #b7ac99;
+  --iso-f1: #c6bca9;
+  --iso-f2: #d4cbbb;
+  --iso-f3: #dfd7c9;
+  --iso-f4: #e8e2d6;
+  --iso-f5: #f0ebe2;
+  --iso-f6: #f6f2eb;
+  --iso-f7: #fcfaf6;
+  --iso-light: #ffc47a;
+  --iso-light-on: 0;
+  color-scheme: light;
+  background-color: var(--color-ground);
+  color: var(--color-fg);
+}
+
+@utility scheme-crimson {
+  --color-ground: #a51c30;
+  --color-raised: #8e1628;
+  --color-fg: #fbf3f1;
+  --color-fg-secondary: #f7e3e4;
+  --color-fg-tertiary: #efd0d3;
+  --color-rule: #bf4a5a;
+  --color-field: #d9848f;
+  --color-accent-fg: #fbf3f1;
+  --iso-ink: 0.72;
+  --iso-f0: #5a0d19;
+  --iso-f1: #6b1120;
+  --iso-f2: #7b1526;
+  --iso-f3: #8a192c;
+  --iso-f4: #991d32;
+  --iso-f5: #a82438;
+  --iso-f6: #b72f43;
+  --iso-f7: #c63c50;
+  --iso-light: #ffd29a;
+  --iso-light-on: 0.9;
+  color-scheme: dark;
+  background-color: var(--color-ground);
+  color: var(--color-fg);
+}
+
+/* ---------------------------------------------------------------------------
+   Drawn on view. `.js` is set in <head> before first paint, so without
+   JavaScript nothing is ever hidden. The runtime marks `[data-reveal]`
+   elements `data-shown` the first time they come into view; the drawings
+   and portraits below draw themselves in from that. */
+
+/* ---------------------------------------------------------------------------
+   Isometric line drawings (src/components/iso). Strokes are in viewBox units;
+   the runtime keeps `--iso-px` at viewBox units per CSS pixel so lines stay
+   hairlines at any size. */
+
+.iso .iso-line path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* One group per weight (see iso-drawing.tsx); opacity on the group, so
+   overlapping line ends do not stack. */
+.iso .k0 {
+  stroke-width: calc(1.15px * var(--iso-px, 1));
+  opacity: var(--iso-ink);
+}
+
+.iso .k1 {
+  stroke-width: calc(0.95px * var(--iso-px, 1));
+  opacity: calc(var(--iso-ink) * 0.72);
+}
+
+.iso .k2 {
+  stroke-width: calc(0.8px * var(--iso-px, 1));
+  opacity: calc(var(--iso-ink) * 0.5);
+}
+
+.iso .k3 {
+  stroke-width: calc(0.8px * var(--iso-px, 1));
+  opacity: calc(var(--iso-ink) * 0.42);
+}
+
+/* Faces, in painter's order, each a step on the scheme's ramp. A hairline of
+   their own colour closes the seams between neighbouring faces. */
+.iso .iso-fills path {
+  stroke-width: calc(0.6px * var(--iso-px, 1));
+  stroke-linejoin: round;
+}
+
+.iso .f0 { fill: var(--iso-f0); stroke: var(--iso-f0); }
+.iso .f1 { fill: var(--iso-f1); stroke: var(--iso-f1); }
+.iso .f2 { fill: var(--iso-f2); stroke: var(--iso-f2); }
+.iso .f3 { fill: var(--iso-f3); stroke: var(--iso-f3); }
+.iso .f4 { fill: var(--iso-f4); stroke: var(--iso-f4); }
+.iso .f5 { fill: var(--iso-f5); stroke: var(--iso-f5); }
+.iso .f6 { fill: var(--iso-f6); stroke: var(--iso-f6); }
+.iso .f7 { fill: var(--iso-f7); stroke: var(--iso-f7); }
+
+/* Lit panes and lamps: on at night, off by day. */
+.iso .iso-lights path {
+  fill: var(--iso-light);
+}
+
+.iso .iso-lg {
+  opacity: var(--iso-light-on);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Draws itself in once when shown: lines first to last, then the faces
+     settle in under them, then the lights come on, group by group. */
+  .js .iso-draw .iso-line path {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset var(--draw-line, 0.7s) var(--ease-out-soft);
+    transition-delay: calc(var(--delay, 0ms) + var(--o) * var(--draw-span, 1.4s));
+  }
+
+  .js .iso-draw .iso-fills {
+    opacity: 0;
+    transition: opacity 1.1s var(--ease-out-soft);
+    transition-delay: calc(var(--delay, 0ms) + var(--draw-span, 1.4s) * 0.45);
+  }
+
+  .js .iso-draw .iso-lg {
+    opacity: 0;
+    transition: opacity 0.8s var(--ease-out-soft);
+    transition-delay: calc(var(--delay, 0ms) + var(--draw-span, 1.4s) + var(--b) * 0.9s);
+  }
+
+  .js [data-shown] .iso-draw .iso-line path,
+  .js .iso-draw[data-shown] .iso-line path {
+    stroke-dashoffset: 0;
+  }
+
+  .js [data-shown] .iso-draw .iso-fills,
+  .js .iso-draw[data-shown] .iso-fills {
+    opacity: 1;
+  }
+
+  .js [data-shown] .iso-draw .iso-lg,
+  .js .iso-draw[data-shown] .iso-lg {
+    opacity: var(--iso-light-on);
+  }
+
+  /* Fades in once scroll progress (`--p`) passes `--at`. */
+  .js .fade-at {
+    opacity: clamp(0, calc((var(--p, 1) - var(--at, 0)) * 8), 1);
+  }
+
+  /* Drawn by scroll: `--p` (0–1) comes from the nearest scroll scene. The
+     lines draw along the drawing's order, the faces fill in behind them and
+     the lights come on at the end. */
+  .js .iso-scrub .iso-line path {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: clamp(0, calc(1 - (var(--p, 0) * 1.18 - var(--o)) / 0.18), 1);
+  }
+
+  .js .iso-scrub .iso-fills path {
+    opacity: clamp(0, calc((var(--p, 0) * 1.18 - var(--o, 0) - 0.12) / 0.2), 1);
+  }
+
+  .js .iso-scrub .iso-lg {
+    opacity: calc(clamp(0, calc((var(--p, 0) - 0.72 - var(--b) * 0.2) * 10), 1) * var(--iso-light-on));
+  }
+}
+
+/* The hero's masked edges, for anything that should melt into the page
+   rather than stop at a line: `--mask-x` and `--mask-y` set how far in the
+   fade reaches from the sides and from top and bottom. A utility, so a
+   breakpoint can switch it off. */
+@utility edge-mask {
+  mask-image:
+    linear-gradient(to right, transparent, #000 var(--mask-x, 10%), #000 calc(100% - var(--mask-x, 10%)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--mask-y, 8%), #000 calc(100% - var(--mask-y, 8%)), transparent);
+  mask-composite: intersect;
+}
+
+/* A speaker card's scene fades out from its middle, so the plinth's corners
+   melt into the card rather than meeting an edge. */
+.speaker-scene {
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 46%, #000 58%, rgb(0 0 0 / 0.5) 78%, transparent 100%);
+}
+
+/* Speaker cards (speakers.tsx): a linked card lifts 2px under the pointer
+   and gives a little when pressed. */
+.speaker-card {
+  box-shadow: var(--shadow-card);
+  transition:
+    translate 300ms var(--ease-snap),
+    scale 160ms var(--ease-snap),
+    box-shadow 300ms var(--ease-snap);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .speaker-card:hover {
+    translate: 0 -2px;
+    box-shadow: var(--shadow-panel);
+  }
+}
+
+.speaker-card:active {
+  scale: 0.99;
+}
+
+/* The pre-registration phone (notify-phone.tsx). The kit lays the lock
+   screen out in iOS points with the system font; each notification opens its
+   own room, so the stack's gap lives inside the arrivals. On the crimson
+   stage the phone's shadow is the stage's own colour, deepened. */
+.notify-phone .ss-phone {
+  font-family: -apple-system, system-ui, "SF Pro Text", sans-serif;
+}
+
+.notify-phone .notify-phone__device {
+  box-shadow:
+    0 2px 8px rgb(48 0 10 / 0.3),
+    0 44px 80px -24px rgb(48 0 10 / 0.6);
+}
+
+.notify-phone .ss-lock__stack {
+  gap: 0;
+}
+
+/* Over a night wallpaper the kit's frosted banner goes muddy grey; a little
+   more white keeps it clean light glass, the brightest thing on the screen. */
+.notify-phone .ss-notification {
+  background: rgb(250 250 251 / 0.86);
+}
+
+.notify-arrive {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.notify-arrive > div {
+  min-height: 0;
+  padding-bottom: 8px;
+  opacity: 0;
+  translate: 0 -14px;
+  transition:
+    opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.12s,
+    translate 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.08s;
+}
+
+.notify-arrive[data-in] {
+  grid-template-rows: 1fr;
+}
+
+.notify-arrive[data-in] > div {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notify-arrive,
+  .notify-arrive > div {
+    transition: none;
+  }
+}
+
+/* A text link draws its underline in from the left on hover. */
+.link-draw {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0% 1px;
+  transition: background-size 300ms var(--ease-snap);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-draw:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* Team portraits (team-portrait.tsx): drawn in line once, the photo
+   developing over the drawing from its foot under the pointer. In slowly,
+   out quickly. */
+.portrait-monogram text {
+  stroke-opacity: 0.7;
+}
+
+.portrait-photo {
+  clip-path: inset(100% 0 0 0);
+  scale: 1.05;
+  transform-origin: 50% 40%;
+  transition:
+    clip-path 280ms var(--ease-snap),
+    scale 400ms var(--ease-snap);
+}
+
+.portrait-lines {
+  transition: opacity 400ms var(--ease-snap);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .team-card:hover .portrait-photo {
+    clip-path: inset(0);
+    scale: 1;
+    transition-duration: 750ms, 1100ms;
+    transition-timing-function: var(--ease-move), var(--ease-snap);
+  }
+
+  .team-card:hover .portrait-lines {
+    opacity: 0.25;
+  }
+}
+
+.team-card:focus-within .portrait-photo {
+  clip-path: inset(0);
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .portrait-monogram text {
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    transition: stroke-dashoffset 2.4s var(--ease-out-soft);
+  }
+
+  .js .portrait[data-shown] .portrait-monogram text {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The Bosphorus (bosphorus-scene.tsx). Each ferry sails its route in
+   container units (the scene's own scale), starting part-way along. */
+@keyframes bos-sail {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: calc(var(--tx) * 100cqw / 1600) calc(var(--ty) * 100cqw / 1600);
+  }
+}
+
+.bos-ferry {
+  will-change: translate;
+  /* At rest (reduced motion), it waits at its starting point on the water. */
+  translate: calc(var(--tx) * var(--start) * 100cqw / 1600) calc(var(--ty) * var(--start) * 100cqw / 1600);
+}
+
+.bos .iso-lights path {
+  transition: opacity 0.9s var(--ease-out-soft);
+}
+
+.bos .iso-lights path[data-off] {
+  opacity: 0;
+}
+
+/* The scene melts into the page like the hero's ground: strongest round the
+   bridge, fading out towards every edge. The ellipse takes the corners and
+   sides; the two bands make sure nothing reaches the top or bottom edge, so
+   the scene never meets the title above it in a line. */
+.bos-mask {
+  mask-image:
+    radial-gradient(ellipse 56% 60% at 50% 50%, #000 48%, rgb(0 0 0 / 0.55) 72%, transparent 100%),
+    linear-gradient(to bottom, transparent, #000 26%, #000 78%, transparent);
+  mask-composite: intersect;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bos-ferry {
+    animation: bos-sail var(--dur) linear infinite;
+    animation-delay: calc(var(--dur) * var(--start) * -1);
+  }
+
+  .bos[data-paused] .bos-ferry {
+    animation-play-state: paused;
+  }
+
+  /* Boats and cars come once the drawing has been drawn. */
+  .js .bos-live {
+    opacity: clamp(0, calc((var(--p, 1) - 0.74) * 5), 1);
+  }
+}
+
+/* A pass (tickets.tsx) lifts 2px under the pointer. */
+.ticket .ticket-shape {
+  transition: translate 300ms var(--ease-snap);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ticket:hover .ticket-shape {
+    translate: 0 -2px;
+  }
+}
+
+/* A ticket: two half-round notches cut into its sides where the stub tears
+   off, `--stub` up from the bottom. */
+.ticket-shape {
+  --notch: 0.7rem;
+  --stub: 5.5rem;
+  mask:
+    radial-gradient(circle at 0 calc(100% - var(--stub)), transparent var(--notch), #000 calc(var(--notch) + 0.5px)) left / 51% 100% no-repeat,
+    radial-gradient(circle at 100% calc(100% - var(--stub)), transparent var(--notch), #000 calc(var(--notch) + 0.5px)) right / 51% 100% no-repeat;
+}
+
+/* ---------------------------------------------------------------------------
+   Loops */
+
+@keyframes bar-fill {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    translate: 0 -100%;
+  }
+  60%,
+  100% {
+    translate: 0 100%;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-cue-dot {
+    animation: scroll-cue 2.2s var(--ease-out-soft) infinite;
+  }
+
+  /* The hero copy settles in on load, without waiting for JavaScript. */
+  .rise-in {
+    animation: rise-in 1s var(--ease-out-soft) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  /* As the hero scrolls away its copy drifts up and fades. `--p` comes from the hero's scroll scene. */
+  .hero-drift {
+    translate: 0 calc(var(--p, 0) * -7rem);
+    opacity: clamp(0, calc(1 - var(--p, 0) * 1.7), 1);
   }
 }

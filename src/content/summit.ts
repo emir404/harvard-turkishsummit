@@ -10,6 +10,7 @@ export const event = {
   subtheme: "From Regional Power to Global Force",
   date: "2027-05-01",
   dateLabel: "Saturday, May 1, 2027",
+  dateShort: "Sat, May 1, 2027",
   venue: "David Rubenstein Treehouse, Harvard University",
   venueShort: "David Rubenstein Treehouse, Harvard",
   address: "20 Western Ave, Boston, MA",
@@ -33,242 +34,265 @@ export const links = {
 
 export const navigation = [
   { label: "About", href: "/#about" },
-  { label: "Program", href: "/#program" },
   { label: "Speakers", href: "/#speakers" },
-  { label: "Sponsors", href: "/#sponsors" },
-  { label: "Organizers", href: "/#organizers" },
+  { label: "Agenda", href: "/#program" },
+  { label: "Partners", href: "/#partners" },
 ] as const;
 
+export const hero = {
+  edition: "Second edition · Spring 2027",
+  badge: "Spring 2027 · Date to be announced",
+  title: ["Harvard College", "Türkiye Summit"],
+  cta: { label: "Get tickets", href: "/#tickets" },
+  about: {
+    title: "About the summit",
+    text: "A one-day summit at Harvard that puts the top Turkish university students in the US in a room with Türkiye’s officials, investors and founders.",
+  },
+  partnersLabel: "In partnership with",
+  scrollCue: "Scroll",
+} as const;
+
+/** The running line under the hero. */
+export const themes = ["Energy", "Education", "Technology", "Future of Türkiye", "Geopolitics"] as const;
+
+/** Numbered labels that open each section. */
+export const sections = {
+  about: { index: "01", label: "About" },
+  mission: { index: "02", label: "Mission & vision" },
+  speakers: { index: "03", label: "Speakers" },
+  program: { index: "04", label: "Program" },
+  tickets: { index: "05", label: "Tickets" },
+  team: { index: "06", label: "Organizing team" },
+  partners: { index: "07", label: "Partners" },
+} as const;
+
 export const about = {
-  statement:
-    "A student-led summit at Harvard that brings together students, scholars, entrepreneurs, policymakers and leaders connected to Türkiye.",
-  body: [
-    "Through interdisciplinary panels and meaningful conversations, the Summit explores Türkiye’s contributions and potential across science, technology, business, culture and global affairs.",
-    "Organized by Harvard students in partnership with the Investment and Finance Office of the Presidency of the Republic of Türkiye, it builds a platform for dialogue, innovation and lasting connections between Harvard and Türkiye.",
-  ],
+  title: "A student-led summit at Harvard",
+  text: "Students, scholars, founders and policymakers connected to Türkiye, together for one day of panels and conversation.",
   stats: [
-    { figure: "300+", label: "Attendees at the inaugural summit, May 2026" },
-    { figure: "19", label: "Speakers from government, industry and academia in 2026" },
-    { figure: "4", label: "Panels across the 2027 focus areas" },
-    { figure: "300–400", label: "Participants expected on May 1, 2027" },
+    { figure: "300+", label: "Attendees at the inaugural summit" },
+    { figure: "19", label: "Speakers in 2026" },
+    { figure: "4", label: "Panels in 2027" },
+    { figure: "300–400", label: "Guests expected in 2027" },
   ],
-  photoCaption: "The inaugural summit · David Rubenstein Treehouse, May 2, 2026",
+  photos: [
+    {
+      id: "auditorium",
+      alt: "Audience facing the stage at the inaugural summit in the David Rubenstein Treehouse",
+      caption: "The inaugural summit · David Rubenstein Treehouse, May 2026",
+    },
+    {
+      id: "panel",
+      alt: "Panel discussion on stage at the inaugural summit",
+      caption: "Panel discussion · 2026",
+    },
+    {
+      id: "keynote",
+      alt: "Speaker presenting to the audience at the inaugural summit",
+      caption: "Keynote · 2026",
+    },
+  ],
 } as const;
 
 export const mission = {
-  statement: "Connecting ideas, people and opportunities across borders.",
-  blocks: [
+  title: "Connecting ideas, people and opportunities across borders.",
+  /** Ties the scene back to the hero: the Harvard house, then Istanbul. */
+  lead: "From a Harvard courtyard to the Bosphorus.",
+  items: [
     {
       label: "Mission",
-      heading: "A space where Turkish leadership and creativity are recognized and celebrated.",
-      text: "A multidisciplinary forum exploring Türkiye’s evolving role in the global landscape, at the intersection of academia, technology, entrepreneurship, culture and innovation.",
+      text: "A space where Turkish leadership and creativity are recognized and celebrated.",
     },
     {
       label: "Vision",
-      heading: "An annual forum at Harvard where Türkiye’s ideas receive lasting international attention.",
-      text: "A tradition future generations of students can carry forward, and a lasting platform for dialogue, innovation and connection between Harvard and Türkiye.",
+      text: "An annual forum at Harvard where Türkiye’s ideas receive lasting international attention.",
     },
   ],
-  whyNow: [
-    {
-      title: "Global relevance",
-      text: "At the crossroads of Europe, the Middle East and Asia, Türkiye plays a unique role in innovation, trade and culture.",
-    },
-    {
-      title: "Harvard stage",
-      text: "The second summit brings Türkiye-focused dialogue back to Harvard’s international community.",
-    },
-    {
-      title: "Networking & development",
-      text: "Leaders, innovators and organizations connect, forge partnerships and tap into Harvard’s talent network.",
-    },
-    {
-      title: "A growing tradition",
-      text: "Building on the inaugural gathering toward a lasting forum between Harvard and Türkiye.",
-    },
-  ],
+  drawingLabel: "Line drawing of a suspension bridge across the Bosphorus, joining Europe and Asia",
 } as const;
+
+/** Isometric drawings that stand for each part of the program (src/components/iso/drawings). */
+export type IconName = "keynote" | "biotech" | "energy" | "economy" | "geopolitics";
 
 export const panels = [
   {
     numeral: "I",
     panel: "Panel I",
     time: "11:00",
+    end: "11:40",
+    icon: "biotech",
     area: "Biotechnology & Life Sciences",
-    description: "Pharmaceuticals, life sciences, medical technology, healthcare innovation and public health.",
+    short: "Biotech & Life Sciences",
     title: "The Next Biotech Frontier: Türkiye Engineering the Future of Health",
   },
   {
     numeral: "II",
     panel: "Panel II",
     time: "12:00",
+    end: "12:40",
+    icon: "energy",
     area: "Energy & Infrastructure",
-    description: "Renewables, energy transition, critical minerals and sustainable infrastructure.",
+    short: "Energy & Infrastructure",
     title: "The Engine of Growth: Türkiye’s Energy and Infrastructure Power",
   },
   {
     numeral: "III",
     panel: "Panel III",
     time: "13:40",
+    end: "14:20",
+    icon: "economy",
     area: "Economy & Investment",
-    description: "Emerging markets, entrepreneurship, global finance, trade, investment and corporate transformation.",
+    short: "Economy & Investment",
     title: "Capital Without Borders: Türkiye’s Economic Ascent",
   },
   {
     numeral: "IV",
     panel: "Panel IV",
     time: "14:40",
+    end: "15:20",
+    icon: "geopolitics",
     area: "Geopolitics, Diplomacy & Defense",
-    description: "Türkiye’s role in international affairs, diplomacy, regional security and the defense sector.",
+    short: "Geopolitics & Defense",
     title: "Shifting Balance of Power: Türkiye on the World Stage",
   },
 ] as const;
 
-export const theme = {
-  subtitle: "From regional power to global force. Four focus areas, one panel each.",
-} as const;
-
 export const speakers = {
   title: "Speakers to be announced",
-  subtitle:
-    "Officials, investors, founders and scholars across the four focus areas. Announcements are coming soon.",
-  slots: [
-    { tag: "Keynote", role: "Keynote speaker" },
-    ...panels.map((panel) => ({ tag: panel.panel, role: panel.area })),
+  text: "Officials, investors, founders and scholars, one stage at a time. Announcements are coming soon.",
+  cards: [
+    { tag: "Keynote", time: "10:00", role: "Keynote speaker", icon: "keynote" as IconName },
+    ...panels.map((panel) => ({ tag: panel.panel, time: panel.time, role: panel.short, icon: panel.icon as IconName })),
   ],
+  status: "To be announced",
+  inquiry: "Speaker inquiries",
 } as const;
 
-export type ScheduleEntry = {
-  kind: "session" | "break";
+export type ProgramItem = {
   start: string;
   end: string;
   title: string;
-  track?: string;
-  format?: string;
+  /** Set for the four panels. */
+  panel?: (typeof panels)[number];
 };
 
-export const schedule: ScheduleEntry[] = [
-  { kind: "session", start: "09:00", end: "10:00", title: "Registration and coffee", format: "Arrival" },
-  { kind: "session", start: "10:00", end: "10:40", title: "Opening remarks and keynote speeches", format: "Keynote" },
-  { kind: "break", start: "10:40", end: "11:00", title: "Break" },
-  { kind: "session", start: "11:00", end: "11:40", title: panels[0].title, track: panels[0].area, format: panels[0].panel },
-  { kind: "break", start: "11:40", end: "12:00", title: "Break" },
-  { kind: "session", start: "12:00", end: "12:40", title: panels[1].title, track: panels[1].area, format: panels[1].panel },
-  { kind: "session", start: "12:40", end: "13:40", title: "Lunch break and sponsor exhibitions", format: "Lunch" },
-  { kind: "session", start: "13:40", end: "14:20", title: panels[2].title, track: panels[2].area, format: panels[2].panel },
-  { kind: "break", start: "14:20", end: "14:40", title: "Break" },
-  { kind: "session", start: "14:40", end: "15:20", title: panels[3].title, track: panels[3].area, format: panels[3].panel },
-  { kind: "break", start: "15:20", end: "15:30", title: "Break" },
-  { kind: "session", start: "15:30", end: "16:00", title: "Closing speeches", format: "Closing" },
-  { kind: "session", start: "16:00", end: "17:00", title: "Networking session", format: "Networking" },
-];
-
-export const gala = {
-  start: "20:00",
-  end: "23:00",
-  title: "Gala, cocktail reception and networking",
-  note: "Evening program · Venue to be announced",
-  ticketNote: "Separate ticket",
+export const program = {
+  title: "One day at the Treehouse",
+  blocks: [
+    {
+      id: "morning",
+      label: "Morning",
+      start: "09:00",
+      end: "12:40",
+      items: [
+        { start: "09:00", end: "10:00", title: "Registration and coffee" },
+        { start: "10:00", end: "10:40", title: "Opening remarks and keynote speeches" },
+        { start: panels[0].time, end: panels[0].end, title: panels[0].title, panel: panels[0] },
+        { start: panels[1].time, end: panels[1].end, title: panels[1].title, panel: panels[1] },
+      ],
+    },
+    {
+      id: "afternoon",
+      label: "Afternoon",
+      start: "12:40",
+      end: "17:00",
+      items: [
+        { start: "12:40", end: "13:40", title: "Lunch and sponsor exhibitions" },
+        { start: panels[2].time, end: panels[2].end, title: panels[2].title, panel: panels[2] },
+        { start: panels[3].time, end: panels[3].end, title: panels[3].title, panel: panels[3] },
+        { start: "15:30", end: "16:00", title: "Closing speeches" },
+        { start: "16:00", end: "17:00", title: "Networking session" },
+      ],
+    },
+  ] satisfies readonly { id: string; label: string; start: string; end: string; items: readonly ProgramItem[] }[],
+  note: "Short breaks between sessions · Preliminary, subject to change",
 } as const;
 
-export const programNotes = {
-  ticketing: "Summit and Gala are ticketed separately. Speaker details to be confirmed.",
-  status: "Preliminary, subject to change",
+export const gala = {
+  label: "Evening",
+  start: "20:00",
+  end: "23:00",
+  title: "The Summit Gala",
+  text: "Cocktail reception and evening networking with speakers, guests and partners.",
+  note: "Venue to be announced",
+  ticketNote: "Separate ticket",
 } as const;
 
 export const tickets = {
   title: "Two events, two tickets.",
-  intro: "The Summit and the evening Gala are ticketed separately. Join us for one, or for both.",
+  intro: "The Summit and the evening Gala are ticketed separately. Join us for one, or both.",
   options: [
     {
       id: "summit",
       kicker: "Summit pass",
       hours: event.summitHours,
-      title: "Harvard Türkiye Summit",
-      meta: `${event.dateLabel} · ${event.venue}`,
-      includes: [
-        "Opening remarks and keynote speeches",
-        "Four panels: biotech, energy, economy and geopolitics",
-        "Lunch and sponsor exhibitions",
-        "Afternoon networking session",
-      ],
+      title: "The Summit",
+      meta: "David Rubenstein Treehouse",
+      includes: ["Keynotes and four panels", "Lunch and sponsor exhibitions", "Afternoon networking"],
       price: "To be announced",
-      action: "Register for the Summit",
+      action: "Register",
       href: links.registerSummit,
     },
     {
       id: "gala",
       kicker: "Gala",
       hours: event.galaHours,
-      title: "The Summit Gala",
-      meta: `${event.dateLabel} · Venue to be announced`,
-      includes: [
-        "Cocktail reception",
-        "Evening networking with guests and partners",
-        "Venue details shared with ticket holders",
-        "Ticketed separately from the Summit Pass",
-      ],
+      title: "The Gala",
+      meta: "Venue to be announced",
+      includes: ["Cocktail reception", "Evening networking", "Ticketed separately"],
       price: "To be announced",
-      action: "Register for the Gala",
+      action: "Register",
       href: links.registerGala,
     },
   ],
 } as const;
 
 export const preRegistration = {
-  title: "Be first in line for 2027.",
-  body: "Tickets are not on sale yet. Pre-register and we will email you first when Summit and Gala tickets open, along with speaker and program announcements.",
-  steps: [
-    "Pre-register in under a minute",
-    "Get early access by email when tickets open",
-    "Choose the Summit, the Gala, or both",
+  title: "Be first in line.",
+  body: "Tickets aren’t on sale yet. Pre-register and we’ll email you the moment Summit and Gala tickets open.",
+  /** The two emails the phone beside the form receives, oldest first. */
+  phone: [
+    {
+      title: "You’re on the list",
+      body: "We’ll write the moment Summit and Gala tickets open.",
+      time: "2w ago",
+    },
+    {
+      title: "Tickets are open",
+      body: "You’re first in line. Summit and Gala passes for May 1 are on sale now.",
+      time: "now",
+    },
   ],
-} as const;
+};
 
 export const attendeeTypes = ["Student", "Academic", "Professional", "Media", "Sponsor or partner"] as const;
 
 export const dietaryOptions = ["No requirements", "Vegetarian", "Vegan", "Halal", "Gluten-free", "Other"] as const;
 
-export const organizers = {
-  title: "Student-led, in partnership with the Investment and Finance Office.",
-  intro:
-    "A joint initiative with the Investment and Finance Office of the Presidency of the Republic of Türkiye and members of the broader Harvard community.",
-  committee: {
-    kicker: "Organizer",
-    name: "Harvard Türkiye Summit organizing committee",
-    description:
-      "A student-led team at Harvard University bringing together students, scholars, entrepreneurs, policymakers and leaders connected to Türkiye.",
-  },
-  partner: {
-    kicker: "In partnership with",
-    name: "Presidency of the Republic of Türkiye Investment and Finance Office",
-    description:
-      "The official organization promoting Türkiye’s investment opportunities to the global business community and supporting investors before, during and after their entry into Türkiye.",
-  },
-  teamTitle: "Organizing team 2027",
-  teamNote: "Full committee announced soon",
-  team: [
+export const team = {
+  title: "Run by students at Harvard",
+  text: "A student-led team, in partnership with the Investment and Finance Office of the Presidency of the Republic of Türkiye.",
+  members: [
     { name: "Elif Lara Okyay", role: "Co-President", email: "laraokyay@college.harvard.edu", linkedin: undefined },
     { name: "Merve Çakır", role: "Co-President", email: "mervecakir@college.harvard.edu", linkedin: undefined },
     { name: "Yavuz Atlamaz", role: "Treasurer", email: undefined, linkedin: undefined },
   ] as { name: string; role: string; email?: string; linkedin?: string }[],
-  teamPlaceholder: { title: "And the full team", note: "Committee leads to be announced" },
+  more: { title: "And the full team", note: "Committee announced soon" },
 };
 
-export const sponsors = {
-  title: "The partners who make the summit possible.",
-  intro:
-    "2027 sponsors will be announced in the coming months. Interested in partnering? We would love to hear from you.",
-  mainPartner: { name: "Main partner", note: "Confirmed" },
-  openTiers: [
-    { name: "Platinum", note: "To be announced", slots: 2 },
-    { name: "Gold", note: "To be announced", slots: 3 },
-    { name: "Silver", note: "To be announced", slots: 4 },
+export const partners = {
+  title: "The partners who make it possible.",
+  list: [
+    {
+      id: "ifo",
+      role: "Main partner",
+      name: "Presidency of the Republic of Türkiye Investment and Finance Office",
+    },
+    { id: "nexus", role: "Partner", name: "Nexus of the World" },
   ],
-  slotText: "Your logo here",
   become: {
-    title: "Connect with a focused, international audience.",
-    body: "Silver, Gold and Platinum packages, plus à la carte add-ons such as exhibition booths, handbook features and sponsored sessions.",
+    title: "Become a sponsor",
+    text: "Connect with a focused, international audience. Silver, Gold and Platinum packages, plus booths, handbook features and sponsored sessions.",
   },
 } as const;
 
@@ -286,10 +310,10 @@ export const footer = {
       links: [
         { label: "About", href: "/#about" },
         { label: "Mission & vision", href: "/#mission" },
-        { label: "Program", href: "/#program" },
         { label: "Speakers", href: "/#speakers" },
-        { label: "Organizers", href: "/#organizers" },
-        { label: "Sponsors", href: "/#sponsors" },
+        { label: "Program", href: "/#program" },
+        { label: "Organizing team", href: "/#team" },
+        { label: "Partners", href: "/#partners" },
       ],
     },
     {
@@ -303,10 +327,12 @@ export const footer = {
       ],
     },
   ],
-  contacts: organizers.team.filter((member) => member.email).map((member) => ({
-    name: `${member.name}, ${member.role}`,
-    email: member.email as string,
-  })),
+  contacts: team.members
+    .filter((member) => member.email)
+    .map((member) => ({
+      name: `${member.name}, ${member.role}`,
+      email: member.email as string,
+    })),
   legal: [
     { label: "Privacy Policy", href: links.privacyPolicy },
     { label: "Terms of Service", href: links.termsOfService },

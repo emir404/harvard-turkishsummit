@@ -1,36 +1,47 @@
+import { FloatingNav } from "@/components/floating-nav";
+import { MotionRuntime } from "@/components/motion/motion-runtime";
 import { About } from "@/components/sections/about";
 import { Hero } from "@/components/sections/hero";
 import { MailingList } from "@/components/sections/mailing-list";
 import { Mission } from "@/components/sections/mission";
-import { Organizers } from "@/components/sections/organizers";
+import { Partners } from "@/components/sections/partners";
 import { Program } from "@/components/sections/program";
 import { Speakers } from "@/components/sections/speakers";
-import { Sponsors } from "@/components/sections/sponsors";
-import { Theme } from "@/components/sections/theme";
+import { Team } from "@/components/sections/team";
+import { ThemeMarquee } from "@/components/sections/theme-marquee";
 import { Tickets } from "@/components/sections/tickets";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 
 export default function Home() {
   return (
-    // The hero's street lines run past the page width, so the overflow is clipped out here.
+    // The hero's drawing runs past the page width, so the overflow is clipped
+    // here. `clip` rather than `hidden`, so the pinned sections still stick.
     <div className="overflow-x-clip">
       <div className="mx-auto max-w-page">
         <SiteNav />
-        <main>
+      </div>
+      <FloatingNav />
+      <main>
+        <div className="mx-auto max-w-page">
           <Hero />
+        </div>
+        {/* Everything after the hero paints over its drawing as it falls behind. */}
+        <div className="relative z-10">
+          <ThemeMarquee />
           <About />
           <Mission />
-          <Theme />
           <Speakers />
           <Program />
           <Tickets />
-          <Organizers />
-          <Sponsors />
+          <Team />
+          <Partners />
           <MailingList />
-        </main>
-        <SiteFooter />
-      </div>
+        </div>
+      </main>
+      <SiteFooter />
+      {/* Last, so it starts once everything above has hydrated and never touches a node React has yet to claim. */}
+      <MotionRuntime />
     </div>
   );
 }

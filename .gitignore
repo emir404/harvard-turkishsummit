@@ -44,3 +44,7 @@ next-env.d.ts
 # treehouse drawing generator
 __pycache__/
 /hero.svg
+
+# agent skills: installed copies; skills-lock.json records what to reinstall
+/.agents/
+/.claude/skills/

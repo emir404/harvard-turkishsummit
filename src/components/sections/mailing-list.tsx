@@ -11,49 +11,45 @@ function MailingListForm() {
   const { state, formAction, pending, onSubmit } = useServerForm("mailing-list");
 
   if (state.status === "success") {
-    return <FormStatus state={state} className="mt-8 text-lg" />;
+    return <FormStatus state={state} className="mt-10 text-lg" />;
   }
 
   return (
-    <Form action={formAction} onSubmit={onSubmit} errors={state.errors} className="mt-8 flex flex-col gap-3">
+    <Form action={formAction} onSubmit={onSubmit} errors={state.errors} className="mt-10 flex w-full max-w-md flex-col gap-3">
       <Field.Root name="email" className="flex flex-col gap-2">
         <Field.Label className="sr-only">Email</Field.Label>
-        <div className="flex flex-wrap gap-3">
+        {/* The field and its button as one pill: the button sits inside the field's end. */}
+        <div className="flex h-14 items-center gap-2 rounded-full border border-fg/60 py-1.5 pr-1.5 pl-5 transition-colors focus-within:border-fg">
           <Field.Control
             type="email"
             required
             placeholder="Your email"
             autoComplete="email"
-            className="h-13 min-w-0 flex-1 basis-60 rounded-xs border border-fg bg-transparent px-4 text-base text-fg placeholder:text-fg/85"
+            className="h-full min-w-0 flex-1 bg-transparent text-base text-fg outline-none placeholder:text-fg/75"
           />
-          <button type="submit" disabled={pending} className={buttonClass("inverse")}>
+          <button type="submit" disabled={pending} className={buttonClass("inverse", "h-full px-5 text-[0.9375rem]")}>
             Subscribe
           </button>
         </div>
         <Field.Error className="text-sm text-fg" />
       </Field.Root>
-      <p className="text-sm text-fg">{mailingList.note}</p>
+      <p className="text-sm text-fg-secondary">{mailingList.note}</p>
       {/* On crimson the status keeps the text colour; the accent tint would not be readable. */}
       <FormStatus state={state} className="text-fg" />
     </Form>
   );
 }
 
+/** The mailing list: one centred column, the title, a line and the form under it. */
 export function MailingList() {
   return (
-    <section
-      id="mailing-list"
-      aria-labelledby="mailing-list-label"
-      className="grid gap-x-5 gap-y-10 bg-accent px-5 py-16 md:px-10 lg:grid-cols-2 lg:py-24"
-    >
-      <div className="flex flex-col">
-        <h2 id="mailing-list-label" className="text-sm text-fg">
+    <section id="mailing-list" aria-labelledby="mailing-list-label" className="scheme-crimson relative">
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-5 py-20 text-center md:px-10 lg:py-28">
+        <h2 id="mailing-list-label" className="text-sm font-medium text-fg-secondary">
           Mailing list
         </h2>
-        <p className="mt-10 text-5xl font-medium tracking-tight text-fg lg:mt-14 lg:text-6xl">{mailingList.title}</p>
-      </div>
-      <div className="flex flex-col justify-end">
-        <p className="max-w-lg text-lg text-pretty text-fg">{mailingList.body}</p>
+        <p className="mt-5 text-5xl leading-[1.02] font-light tracking-[-0.035em] lg:text-7xl">{mailingList.title}</p>
+        <p className="mt-6 max-w-md text-lg text-pretty text-fg-secondary">{mailingList.body}</p>
         <MailingListForm />
       </div>
     </section>

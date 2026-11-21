@@ -40,7 +40,8 @@ export function ActionLink({ href, children, className, ...rest }: ActionLinkPro
 
 export function buttonClass(variant: "primary" | "outline" | "inverse" = "primary", className?: string) {
   return cn(
-    "inline-flex h-13 shrink-0 items-center justify-center gap-2.5 rounded-xs px-7 text-base font-medium",
+    // Steps on hover and presses in on click: a button should feel it was heard.
+    "inline-flex h-13 shrink-0 items-center justify-center gap-2.5 rounded-full px-7 text-base font-medium transition-[background-color,border-color,color,scale] duration-150 ease-(--ease-snap) active:scale-[0.97]",
     variant === "primary" && "bg-accent text-fg hover:bg-accent/90",
     variant === "outline" && "border border-field px-6 text-fg hover:border-fg",
     variant === "inverse" && "bg-fg text-ground hover:bg-fg/90",
@@ -48,5 +49,4 @@ export function buttonClass(variant: "primary" | "outline" | "inverse" = "primar
   );
 }
 
-export const textLinkClass =
-  "inline-flex w-fit items-center gap-2 text-base font-medium text-fg underline-offset-4 hover:underline";
+export const textLinkClass = "link-draw inline-flex w-fit items-center gap-2 pb-0.5 text-base font-medium text-fg";

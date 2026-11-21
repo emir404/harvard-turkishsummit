@@ -15,10 +15,10 @@ import type { FormState } from "@/lib/forms";
 const labelClass = "text-sm text-fg-secondary";
 const errorClass = "text-sm text-accent-fg";
 const controlClass =
-  "w-full rounded-xs border border-field bg-raised px-4 text-base text-fg placeholder:text-fg-tertiary";
+  "w-full rounded-lg border border-field bg-raised px-4 text-base text-fg placeholder:text-fg-tertiary";
 const checkboxClass =
   "flex size-5 shrink-0 items-center justify-center rounded-xs border border-field data-checked:border-accent data-checked:bg-accent";
-const cardClass = "flex items-center gap-3.5 rounded-xs border border-field px-4 has-checked:border-fg";
+const cardClass = "flex items-center gap-3.5 rounded-lg border border-field px-4 has-checked:border-fg";
 
 function CheckMark() {
   return (
@@ -93,7 +93,7 @@ export function ChoiceChips({
           <Radio.Root
             key={option}
             value={option}
-            className="inline-flex h-11 cursor-default items-center rounded-xs border border-field px-4 text-sm text-fg select-none data-checked:border-fg data-checked:bg-fg data-checked:font-medium data-checked:text-ground"
+            className="inline-flex h-11 cursor-default items-center rounded-full border border-field px-4 text-sm text-fg select-none data-checked:border-fg data-checked:bg-fg data-checked:font-medium data-checked:text-ground"
           >
             {option}
           </Radio.Root>
@@ -219,7 +219,7 @@ export function QuantityField({
   return (
     <Field.Root name={name}>
       <NumberField.Root value={value} onValueChange={(next) => onValueChange(next ?? 1)} min={1}>
-        <NumberField.Group className="flex h-10 items-center rounded-xs border border-field">
+        <NumberField.Group className="flex h-10 items-center rounded-lg border border-field">
           <NumberField.Decrement
             aria-label={`Decrease ${label.toLowerCase()}`}
             className="flex h-full w-9 items-center justify-center text-fg disabled:text-fg-tertiary"
