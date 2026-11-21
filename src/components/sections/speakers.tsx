@@ -36,7 +36,8 @@ export function Speakers() {
         }
       />
 
-      <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:h-[min(42rem,calc(100svh-9rem))] lg:grid-cols-4 lg:grid-rows-2 lg:gap-5">
+      {/* One 20px gap both ways; from lg two fixed rows, so the keynote spans exactly the height of two panels and the gap between them. */}
+      <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:grid-rows-[repeat(2,20rem)]">
         {speakers.cards.map((card, index) => {
           const lead = index === 0;
           return (
@@ -45,7 +46,8 @@ export function Speakers() {
                 href={agendaAnchor(card.time)}
                 className={cn(
                   "speaker-card scheme-ink group relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-5 md:p-6",
-                  lead ? "min-h-[28rem] sm:min-h-[30rem]" : "min-h-[21rem]",
+                  // The minimum heights are for the stacked layout; from lg the rows set the size.
+                  lead ? "max-lg:min-h-[28rem] sm:max-lg:min-h-[30rem]" : "max-lg:min-h-[21rem]",
                 )}
               >
                 {/* The scene, wholly inside the card in its top-right, melting into it on every side. */}

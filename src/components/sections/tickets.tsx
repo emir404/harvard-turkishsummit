@@ -112,21 +112,16 @@ export function Tickets() {
         ))}
       </div>
 
-      <div
-        id="pre-register"
-        className="mt-5 grid scroll-mt-8 gap-x-12 gap-y-10 overflow-hidden rounded-3xl bg-raised shadow-panel lg:grid-cols-12"
-      >
-        <div className="flex flex-col p-6 md:p-10 lg:col-span-5 lg:p-12 lg:pr-0">
+      {/* Pre-registration: the phone on its stage, and the form beside it on the page. On large screens
+          the stage stays in view while the form is filled in. */}
+      <div id="pre-register" className="mt-20 grid scroll-mt-8 gap-x-12 gap-y-12 lg:mt-24 lg:grid-cols-12 lg:items-start">
+        <NotifyPhone notes={preRegistration.phone} className="lg:sticky lg:top-24 lg:col-span-5" />
+        <div className="lg:col-span-7 lg:pt-2">
           <h3 className="text-4xl leading-[1.05] font-light tracking-[-0.03em] md:text-5xl">{preRegistration.title}</h3>
-          <p className="mt-5 max-w-sm text-lg text-pretty text-fg-secondary">{preRegistration.body}</p>
-          {/* The phone stands on the panel's foot, cut by its edge; on phones, where the form follows, it fades out instead. */}
-          <div className="relative mt-10 flex h-[24rem] justify-center overflow-hidden [mask-image:linear-gradient(to_bottom,#000_70%,transparent)] lg:-mb-12 lg:mt-auto lg:h-[26rem] lg:[mask-image:none]">
-            <NotifyPhone notes={preRegistration.phone} className="pt-2" />
+          <p className="mt-5 max-w-md text-lg text-pretty text-fg-secondary">{preRegistration.body}</p>
+          <div className="mt-10">
+            <PreRegistrationForm />
           </div>
-        </div>
-        {/* Inside the raised panel the fields sit a step darker. */}
-        <div className="p-6 pt-0 [--color-raised:var(--color-ground)] md:p-10 md:pt-0 lg:col-span-7 lg:p-12 lg:pl-0">
-          <PreRegistrationForm />
         </div>
       </div>
     </Section>
