@@ -30,7 +30,8 @@ const revealGate = `(function(){var d=document.documentElement;d.classList.add("
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={hankenGrotesk.variable} suppressHydrationWarning>
+    // data-scroll-behavior: Next turns smooth scrolling off for page changes, so only in-page links glide.
+    <html lang="en" className={hankenGrotesk.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: revealGate }} />
       </head>

@@ -57,6 +57,14 @@
     background-color: var(--color-ground);
   }
 
+  /* In-page links glide to their section; page changes stay instant
+     (data-scroll-behavior in layout.tsx), and reduced motion jumps. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     @apply bg-ground font-sans text-fg antialiased;
   }

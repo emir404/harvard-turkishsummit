@@ -40,7 +40,7 @@ export function SiteFooter() {
           </nav>
         ))}
 
-        <div id="contact" className="col-span-2 flex flex-col gap-3 sm:col-span-1 lg:col-span-3">
+        <div id="contact" className="col-span-2 flex scroll-mt-24 flex-col gap-3 sm:col-span-1 lg:col-span-3">
           <h2 className={columnTitleClass}>Contact</h2>
           {footer.contacts.map((contact) => (
             <p key={contact.email} className="flex flex-col pb-2">

@@ -6,8 +6,8 @@ import { cn } from "@/lib/cn";
 
 type Photo = { src: StaticImageData; alt: string };
 
-const INTERVAL = 6000;
-const WIPE = 1100;
+const INTERVAL = 4000;
+const WIPE = 950;
 const EASE_MOVE = "cubic-bezier(0.77, 0, 0.175, 1)";
 
 /**

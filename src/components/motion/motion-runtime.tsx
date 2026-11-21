@@ -11,6 +11,10 @@ import { useEffect } from "react";
  * - `svg[data-iso]` line drawings get `--iso-px` (viewBox units per CSS
  *   pixel), so their strokes stay hairlines at any size.
  *
+ * - A link to the section already in the URL scrolls there again. The router
+ *   sees no change and does nothing, where a plain anchor would scroll; the
+ *   CSS `scroll-behavior` decides whether it glides.
+ *
  * Render it once, as the last child of a page: its effect then runs after
  * the page has hydrated, so it never changes a node React has yet to claim.
  * It also watches for elements added later.
@@ -61,6 +65,23 @@ export function MotionRuntime() {
     };
     scan();
 
+    // Runs after the router's own click handling, which has already called preventDefault on its links.
+    const onClick = (event: MouseEvent) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!link || link.target === "_blank") return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+      // A different section is taken care of by the router or the browser.
+      if (!url.hash || url.hash !== window.location.hash) return;
+      const id = decodeURIComponent(url.hash.slice(1));
+      const target = id === "top" ? document.body : document.getElementById(id);
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ block: "start" });
+    };
+    document.addEventListener("click", onClick);
+
     let pending = 0;
     const mutations = new MutationObserver(() => {
       if (pending) return;
@@ -72,6 +93,7 @@ export function MotionRuntime() {
     mutations.observe(document.body, { childList: true, subtree: true });
 
     return () => {
+      document.removeEventListener("click", onClick);
       cancelAnimationFrame(pending);
       mutations.disconnect();
       reveal.disconnect();

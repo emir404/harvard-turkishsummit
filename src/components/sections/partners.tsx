@@ -43,7 +43,7 @@ export function Partners() {
 
       <div
         id="become-a-sponsor"
-        className="mt-16 flex scroll-mt-8 flex-wrap items-end justify-between gap-x-12 gap-y-8 border-t border-rule pt-10 lg:mt-20"
+        className="mt-16 flex scroll-mt-24 flex-wrap items-end justify-between gap-x-12 gap-y-8 border-t border-rule pt-10 lg:mt-20"
       >
         <div className="max-w-xl">
           <h3 className="text-3xl leading-[1.1] font-light tracking-[-0.025em] md:text-4xl">{partners.become.title}</h3>

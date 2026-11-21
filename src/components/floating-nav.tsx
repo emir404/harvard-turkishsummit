@@ -62,7 +62,7 @@ export function FloatingNav() {
         aria-label="Sections"
         className="flex items-center gap-1 rounded-full bg-[#0c0c0c]/80 p-1.5 pl-4 text-white shadow-[0_12px_32px_-12px_rgb(0_0_0/0.5)] ring-1 ring-white/12 backdrop-blur-xl"
       >
-        <Link href="/" aria-label={`${event.name} 2027, back to the top`} className="mr-2 shrink-0">
+        <Link href="/#top" aria-label={`${event.name} 2027, back to the top`} className="mr-2 shrink-0">
           <Image src={summitWordmark} alt="" className="h-7 w-auto" />
         </Link>
         <ul className="hidden items-center md:flex">

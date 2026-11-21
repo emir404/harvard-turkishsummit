@@ -114,7 +114,7 @@ export function Tickets() {
 
       {/* Pre-registration: the phone on its stage, and the form beside it on the page. On large screens
           the stage stays in view while the form is filled in. */}
-      <div id="pre-register" className="mt-20 grid scroll-mt-8 gap-x-12 gap-y-12 lg:mt-24 lg:grid-cols-12 lg:items-start">
+      <div id="pre-register" className="mt-20 grid scroll-mt-24 gap-x-12 gap-y-12 lg:mt-24 lg:grid-cols-12 lg:items-start">
         <NotifyPhone notes={preRegistration.phone} className="lg:sticky lg:top-24 lg:col-span-5" />
         <div className="lg:col-span-7 lg:pt-2">
           <h3 className="text-4xl leading-[1.05] font-light tracking-[-0.03em] md:text-5xl">{preRegistration.title}</h3>

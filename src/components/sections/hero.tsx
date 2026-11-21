@@ -94,16 +94,17 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue: a bead running down a hairline. */}
-      <div
-        aria-hidden="true"
+      {/* Scroll cue: a bead running down a hairline, which takes you on to About. */}
+      <a
+        href="#about"
+        aria-label="Scroll to About"
         // At the foot of the first screen, even when the hero runs taller than the window.
-        className="hero-drift pointer-events-none absolute inset-x-0 top-[min(calc(100%-5.25rem),calc(100svh-10.75rem))] z-10 mx-auto hidden w-fit flex-col items-center gap-2.5 lg:flex"
+        className="hero-drift group absolute inset-x-0 top-[min(calc(100%-5.75rem),calc(100svh-11.25rem))] z-10 mx-auto hidden h-16 w-11 items-center justify-center rounded-full lg:flex"
       >
-        <span className="relative block h-12 w-px overflow-hidden bg-white/18">
+        <span className="relative block h-12 w-px overflow-hidden bg-white/18 transition-colors duration-200 group-hover:bg-white/40">
           <span className="scroll-cue-dot absolute inset-x-0 top-0 block h-1/2 bg-white" />
         </span>
-      </div>
+      </a>
     </ScrollScene>
   );
 }
