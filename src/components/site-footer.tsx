@@ -3,6 +3,7 @@ import { FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
 import summitLogo from "@/assets/summit-logo.png";
 import { ActionLink } from "@/components/ui/action-link";
 import { event, footer, links } from "@/content/summit";
+import { forward } from "@/lib/page-transition";
 
 const linkClass = "w-fit text-base text-fg underline-offset-4 hover:underline";
 const columnTitleClass = "pb-1 text-sm text-fg-tertiary";
@@ -33,7 +34,13 @@ export function SiteFooter() {
           <nav key={column.title} aria-label={column.title} className="flex flex-col gap-3 lg:col-span-2">
             <h2 className={columnTitleClass}>{column.title}</h2>
             {column.links.map((link) => (
-              <ActionLink key={link.label} href={link.href} className={linkClass}>
+              <ActionLink
+                key={link.label}
+                href={link.href}
+                // The footer is on the home page: a link to another page is one into registration.
+                transitionTypes={link.href?.startsWith("/register") ? forward : undefined}
+                className={linkClass}
+              >
                 {link.label}
               </ActionLink>
             ))}

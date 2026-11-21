@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import type { PageTransitionType } from "@/lib/page-transition";
 
 type ActionLinkProps = {
   /** Left undefined while the destination is unknown; renders as plain text. */
@@ -10,10 +11,12 @@ type ActionLinkProps = {
   download?: boolean;
   "aria-label"?: string;
   "aria-current"?: "page";
+  /** For a link to another page: which way the page transition goes (src/lib/page-transition.ts). */
+  transitionTypes?: PageTransitionType[];
 };
 
 /** One link element for routes, anchors, files and mail addresses. */
-export function ActionLink({ href, children, className, ...rest }: ActionLinkProps) {
+export function ActionLink({ href, children, className, transitionTypes, ...rest }: ActionLinkProps) {
   if (!href) {
     return (
       <span aria-disabled="true" className={className} aria-label={rest["aria-label"]}>
@@ -25,7 +28,7 @@ export function ActionLink({ href, children, className, ...rest }: ActionLinkPro
   const isRoute = href.startsWith("/") && !/\.[a-z0-9]+$/i.test(href);
   if (isRoute) {
     return (
-      <Link href={href} className={className} {...rest}>
+      <Link href={href} className={className} transitionTypes={transitionTypes} {...rest}>
         {children}
       </Link>
     );

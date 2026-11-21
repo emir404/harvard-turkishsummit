@@ -4,6 +4,7 @@ import { Form } from "@base-ui/react/form";
 import { useState, type ReactNode } from "react";
 import { FiArrowRight, FiLock } from "react-icons/fi";
 import { ActionLink, buttonClass, textLinkClass } from "@/components/ui/action-link";
+import { back, ticketSwitch } from "@/lib/page-transition";
 import {
   CheckboxCards,
   CheckboxField,
@@ -202,7 +203,7 @@ export function RegistrationForm({ ticket, intro }: { ticket: Ticket; intro: Rea
             Continue to payment
             <FiArrowRight aria-hidden="true" className="size-4" />
           </button>
-          <ActionLink href="/#tickets" className={textLinkClass}>
+          <ActionLink href="/#tickets" transitionTypes={back} className={textLinkClass}>
             Back to tickets
           </ActionLink>
         </div>
@@ -242,7 +243,7 @@ export function RegistrationForm({ ticket, intro }: { ticket: Ticket; intro: Rea
         <div className="flex flex-col border border-rule p-6 sm:p-8">
           <p className="text-sm text-fg-tertiary tabular-nums">{content.crossSell.kicker}</p>
           <p className="mt-3 text-xl text-pretty text-fg">{content.crossSell.title}</p>
-          <ActionLink href={content.crossSell.href} className={`${textLinkClass} mt-6`}>
+          <ActionLink href={content.crossSell.href} transitionTypes={ticketSwitch} className={`${textLinkClass} mt-6`}>
             {content.crossSell.action}
             <FiArrowRight aria-hidden="true" className="size-4" />
           </ActionLink>

@@ -6,6 +6,7 @@ import { LazyIsoDrawing, type DrawingName } from "@/components/iso/lazy-iso";
 import { NotifyPhone } from "@/components/sections/notify-phone";
 import { PreRegistrationForm } from "@/components/sections/pre-registration-form";
 import { ActionLink } from "@/components/ui/action-link";
+import { forward } from "@/lib/page-transition";
 import { Section, SectionIntro } from "@/components/ui/section";
 import { event, preRegistration, sections, tickets } from "@/content/summit";
 import { cn } from "@/lib/cn";
@@ -85,6 +86,7 @@ function TicketCard({ ticket, scheme }: { ticket: Ticket; scheme: "ink" | "crims
           </p>
           <ActionLink
             href={ticket.href}
+            transitionTypes={forward}
             className="inline-flex h-11 items-center gap-2 rounded-full bg-fg pr-1.5 pl-5 text-[0.9375rem] font-medium text-ground transition-[scale] duration-150 ease-(--ease-snap) active:scale-[0.97]"
           >
             {ticket.action}

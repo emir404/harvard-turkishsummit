@@ -4,6 +4,7 @@ import { ActionLink, textLinkClass } from "@/components/ui/action-link";
 import { Section, SectionIntro } from "@/components/ui/section";
 import { event, gala, links, program, sections, type ProgramItem } from "@/content/summit";
 import { cn } from "@/lib/cn";
+import { forward } from "@/lib/page-transition";
 
 function Time({ value }: { value: string }) {
   return <time dateTime={`${event.date}T${value}`}>{value}</time>;
@@ -135,7 +136,11 @@ export function Program() {
               </p>
               <h4 className="text-lg leading-[1.3] font-medium tracking-[-0.01em]">{gala.title}</h4>
               <p className="max-w-xl text-[0.9375rem] text-pretty text-fg-secondary">{gala.text}</p>
-              <ActionLink href={links.registerGala} className={cn(textLinkClass, "mt-3 text-[0.9375rem]")}>
+              <ActionLink
+                href={links.registerGala}
+                transitionTypes={forward}
+                className={cn(textLinkClass, "mt-3 text-[0.9375rem]")}
+              >
                 Gala tickets
                 <FiArrowRight aria-hidden="true" className="size-4" />
               </ActionLink>

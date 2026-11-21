@@ -525,6 +525,124 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Page transitions (React's <ViewTransition>; see src/lib/page-transition.ts).
+   Into registration the page moves left while the next arrives from the
+   right; back to the site, the reverse. The old page leaves quickly, the new
+   one settles in on the snappy ease, and a touch of blur turns the crossfade
+   into one movement. Switching tickets crossfades the form under a header
+   that stays put. */
+
+::view-transition {
+  /* Clicks during the transition reach the live page. */
+  pointer-events: none;
+}
+
+::view-transition-old(.nav-forward),
+::view-transition-old(.nav-back) {
+  animation:
+    180ms var(--ease-out-soft) both page-fade-out,
+    320ms var(--ease-out-soft) both page-slide-out;
+}
+
+::view-transition-new(.nav-forward),
+::view-transition-new(.nav-back) {
+  animation:
+    320ms var(--ease-out-soft) 110ms both page-fade-in,
+    560ms var(--ease-snap) both page-slide-in;
+}
+
+::view-transition-old(.nav-forward) {
+  --page-shift: -48px;
+}
+
+::view-transition-new(.nav-forward) {
+  --page-shift: 48px;
+}
+
+::view-transition-old(.nav-back) {
+  --page-shift: 48px;
+}
+
+::view-transition-new(.nav-back) {
+  --page-shift: -48px;
+}
+
+::view-transition-old(.page-swap) {
+  animation: 150ms var(--ease-out-soft) both page-fade-out;
+}
+
+::view-transition-new(.page-swap) {
+  animation: 260ms var(--ease-out-soft) 70ms both page-fade-in;
+}
+
+/* The registration header while switching tickets: one header, not moving. */
+::view-transition-group(.page-anchor) {
+  animation: none;
+  z-index: 10;
+}
+
+::view-transition-old(.page-anchor) {
+  display: none;
+}
+
+::view-transition-new(.page-anchor) {
+  animation: none;
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+@keyframes page-slide-out {
+  to {
+    translate: var(--page-shift) 0;
+  }
+}
+
+@keyframes page-slide-in {
+  from {
+    translate: var(--page-shift) 0;
+  }
+}
+
+@keyframes page-fade-plain-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade-plain-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No movement: a short crossfade. */
+  ::view-transition-old(.nav-forward),
+  ::view-transition-old(.nav-back),
+  ::view-transition-old(.page-swap) {
+    animation: 140ms ease-out both page-fade-plain-out;
+  }
+
+  ::view-transition-new(.nav-forward),
+  ::view-transition-new(.nav-back),
+  ::view-transition-new(.page-swap) {
+    animation: 200ms ease-out both page-fade-plain-in;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Loops */
 
 @keyframes bar-fill {
